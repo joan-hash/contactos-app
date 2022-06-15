@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/darkly/bootstrap.min.css"
+	integrity="sha512-ZdxIsDOtKj2Xmr/av3D/uo1g15yxNFjkhrcfLooZV5fW0TT7aF7Z3wY1LOA16h0VgFLwteg14lWqlYUQK3to/w=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script defer
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+<title>Mis contactos!</title>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand font-weight-bold">App de contactos!</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<div class="d-flex justify-content-between w-100">
+					<ul class="navbar-nav">
+						<li class="nav-item"><a class="nav-link" th:href = "@{/}">Inicio</a></li>
+						<li class="nav-item"><a class="nav-link" th:href = "@{/contacto/agregar}">Agregar contacto</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<div class="container pt-4 p-3">
+		<div class="row">
+			<div class="col-md-4 mx-auto" th:if = "${contactos.isEmpty()}">
+				<div class="card card-body text-center">
+					<p>No tienes contactos guardados aun</p>
+					<a th:href = "@{/contacto/agregar}">Agrega uno!</a>
+				</div>
+			</div>
+			<div class="col-md-4 mb-3" th:each="contacto : ${contactos}">
+				<div class="card text-center">
+					<div class="card-body">
+						<h3 class="card-title text-capitalize"
+							th:text="${contacto.nombre}"></h3>
+						<p class="m-2" th:text="${contacto.correo}"></p>
+						<p class="m-2" th:text="${contacto.fono}"></p>
+						<a th:href="@{/contacto/editar/{id}(id = ${contacto.id})}" class="btn btn-secondary mb-2">Editar Contacto</a>
+						<a th:href="@{/eliminar-contacto/{id}(id = ${contacto.id})}" class="btn btn-danger mb-2">Eliminar Contacto</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
